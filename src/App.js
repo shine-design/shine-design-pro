@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import {routeFactory} from './routers';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				This is a test render
+				{routeFactory(this.props)}
 			</div>
 		);
 	}

@@ -1,8 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import Route from './routers';
+import {app} from './connect';
+import models from './models';
+import {onInit} from './handler';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+app.model(models);
+
+app.start('#root', Route, ({dispatch, getState}) => {
+	/**
+	 * @callback 初始化回调
+	 * @note 对外暴露的接口以及可以复用的callback处理方法
+	 */
+	onInit({dispatch, getState});
+});
 
 serviceWorker.unregister();
