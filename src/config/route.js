@@ -1,7 +1,7 @@
 /**
  * 网站路由配置
  */
-import App from '../App';
+import App from '../components/App';
 
 export default {
 	rules: [

@@ -1,0 +1,179 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/25 10:35
+ */
+
+.sh-stack {
+	display: block;
+	width: 100%;
+	height: 100%;
+
+	&.sh-stack--hor {
+		> .sh-stack__item {
+			display: block;
+
+			&.sh-stack__item--fluid {
+				display: block;
+				height: auto;
+			}
+		}
+	}
+
+	&.sh-stack--ver {
+		> .sh-stack__item {
+			display: block;
+			height: auto;
+		}
+	}
+}
+
+@mixin sh--build-stack-flex($mode) {
+	.sh-stack.sh-stack--flex-#{$mode} {
+		display: flex;
+		flex-direction: column;
+
+		&.sh-stack--ver {
+			> .sh-stack__item.sh-stack__item--first {
+				display: block;
+				order: 1;
+			}
+
+			> .sh-stack__item.sh-stack__item--last {
+				display: block;
+				order: 2;
+			}
+		}
+	}
+}
+
+@mixin sh--build-stack($mode) {
+	.sh-stack.sh-stack--#{$mode} {
+		display: table;
+		table-layout: fixed;
+
+		&.sh-stack--fluid {
+			table-layout: auto;
+		}
+
+		&.sh-stack--inline {
+			width: auto;
+		}
+
+		&.sh-stack--hor {
+			> .sh-stack__item {
+				display: table-row;
+				vertical-align: top;
+				height: 1px;
+
+				> .sh-stack__demo-item {
+					height: 100%;
+				}
+
+				&.sh-stack__item--fluid {
+					height: auto;
+				}
+
+				&.sh-stack__item--fit {
+					line-height: 0;
+				}
+
+				&.sh-stack__item--left {
+					text-align: left;
+				}
+
+				&.sh-stack__item--right {
+					text-align: right;
+				}
+
+				&.sh-stack__item--center {
+					text-align: center;
+				}
+
+				&.sh-stack__item--top {
+					vertical-align: top;
+				}
+
+				&.sh-stack__item--middle {
+					vertical-align: middle;
+				}
+
+				&.sh-stack__item--bottom {
+					vertical-align: bottom;
+				}
+			}
+		}
+
+		&.sh-stack--ver {
+			&.sh-stack--demo {
+				height: 80px;
+			}
+
+			> .sh-stack__item {
+				display: table-cell;
+				vertical-align: top;
+				height: 100%;
+
+				&.sh-stack__item--fluid {
+					width: 100%;
+				}
+
+				&.sh-stack__item--fit {
+					line-height: 0;
+				}
+
+				&.sh-stack__item--left {
+					text-align: left;
+				}
+
+				&.sh-stack__item--right {
+					text-align: right;
+				}
+
+				&.sh-stack__item--center {
+					text-align: center;
+				}
+
+				&.sh-stack__item--top {
+					vertical-align: top;
+				}
+
+				&.sh-stack__item--middle {
+					vertical-align: middle;
+				}
+
+				&.sh-stack__item--bottom {
+					vertical-align: bottom;
+				}
+			}
+		}
+	}
+}
+
+@include sh--build-stack(general);
+@include sh--build-stack-flex(general);
+
+@include desktop {
+	@include sh--build-stack(desktop);
+	@include sh--build-stack-flex(desktop);
+}
+
+@include desktop-and-tablet {
+	@include sh--build-stack(desktop-and-tablet);
+	@include sh--build-stack-flex(desktop-and-tablet);
+}
+
+@include tablet {
+	@include sh--build-stack(tablet);
+	@include sh--build-stack-flex(tablet);
+}
+
+@include tablet-and-mobile {
+	@include sh--build-stack(tablet-and-mobile);
+	@include sh--build-stack-flex(tablet-and-mobile);
+}
+
+@include mobile {
+	@include sh--build-stack(mobile);
+	@include sh--build-stack-flex(mobile);
+}
+

@@ -1,0 +1,11 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/21 17:05
+ */
+@mixin transform($degree) {
+  -webkit-transform: #{$degree};
+  -moz-transform:#{ $degree};
+  -ms-transform: #{$degree};
+  -o-transform: #{$degree};
+  transform: #{$degree};
+}

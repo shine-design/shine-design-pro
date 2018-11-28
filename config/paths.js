@@ -50,6 +50,7 @@ const moduleFileExtensions = [
   'json',
   'web.jsx',
   'jsx',
+	'scss'
 ];
 
 // Resolve file paths in the same order as webpack
@@ -76,7 +77,7 @@ module.exports = {
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
 	mockSrc: resolveApp('mock'),
-	shinerSrc:resolveApp('src/shiner'),
+	shinerSrc:resolveApp('src/connect'),
   appTsConfig: resolveApp('tsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),

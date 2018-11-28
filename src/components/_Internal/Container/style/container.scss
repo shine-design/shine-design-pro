@@ -1,0 +1,40 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/24 14:40
+ */
+
+.sh-container {
+	@include clearfix();
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+
+	&.sh-container--fluid {
+		width: 100%;
+	}
+
+	&.sh-container--full-height {
+		position: relative;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 100%;
+	}
+}
+
+@each $breakpoint, $breakpoint-width in $sh--layout-breakpoints {
+	@media (min-width: $breakpoint-width) {
+		.sh-container:not(.sh-container--fluid):not(.sh-container--responsive) {
+			width: map-get($sh--container-widths, $breakpoint);
+		}
+	}
+}
+
+@each $breakpoint, $breakpoint-width in $sh--layout-breakpoints {
+	@media (min-width: $breakpoint-width) {
+		.sh-container.sh-container--responsive.sh-container--#{$breakpoint} {
+			width: map-get($sh--container-widths, $breakpoint);
+		}
+	}
+}

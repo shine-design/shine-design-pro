@@ -1,0 +1,9 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/27 14:00
+ */
+@mixin attr($attr, $value, $important: '') {
+	@if  $value != null  {
+		#{$attr}: #{$value} #{$important};
+	}
+}

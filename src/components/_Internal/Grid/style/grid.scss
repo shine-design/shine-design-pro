@@ -1,0 +1,144 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/24 10:32
+ */
+
+@mixin m--build-grid($mode) {
+	$mode-class: '';
+	$mode-dir: '';
+
+	// Grid mode
+	@if ($mode == general) {
+		$mode-class: ":not(.sh-grid--desktop):not(.sh-grid--desktop-and-tablet):not(.sh-grid--tablet):not(.sh-grid--tablet-and-mobile):not(.sh-grid--mobile)";
+	} @else {
+		$mode-class: ".sh-grid--" + $mode;
+		$mode-dir: "-" + $mode;
+	}
+
+	//== Horizontal grid
+	.sh-grid.sh-grid--hor#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: column;
+
+		&.sh-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px; // IE10-11 fix
+		}
+
+		> .sh-grid__item {
+			flex: none;
+
+			&.sh-grid__item--fluid,
+			&.sh-grid__item--fluid-#{$mode} {
+				flex: 1 0 auto;
+				//-ms-flex: 1 0 0px;  // IE10-11 fix
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .sh-grid__item.sh-grid__item--order-#{$mode}-#{$i} {
+				order: $i;
+			}
+		}
+	}
+
+	//== Vertical grid
+	.sh-grid.sh-grid--ver#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: row;
+
+		&.sh-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px;  // IE10-11 fix
+		}
+
+		> .sh-grid__item {
+			flex: 0 0 auto;
+
+			&.sh-grid__item--fluid,
+			&.sh-grid__item--fluid-#{$mode} {
+				flex: 1 auto;
+				-ms-flex: 1 0 0px;  // IE10-11 fix
+				min-width: 0;
+
+				@include hack-ie8-11 {
+					min-width: none;  // IE10-11 fix
+				}
+			}
+
+			&.sh-grid-item--center {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .sh-grid__item.sh-grid__item--order-#{$mode}-#{$i} {
+				order: $i;
+			}
+		}
+	}
+
+	//== Grid item order
+	.sh-grid {
+		// horizontal items aligment
+		&.sh-grid--center {
+			align-content: center;
+		}
+
+		// vertical item alignment
+		> .sh-grid__item {
+			max-width:100%;
+
+			&.sh-grid__item--top {
+				align-self: flex-start;
+			}
+
+			&.sh-grid__item--middle {
+				align-self: center;
+			}
+
+			&.sh-grid__item--bottom {
+				align-self: flex-end;
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .sh-grid__item.sh-grid__item--order-#{$i} {
+				order: $i;
+			}
+		}
+	}
+}
+
+//== General Mode
+@include m--build-grid(general);
+
+//== Desktop Mode
+@include desktop {
+	@include m--build-grid(desktop);
+}
+
+//== Desktop & Tablet Modes
+@include desktop-and-tablet {
+	@include m--build-grid(desktop-and-tablet);
+}
+
+//== Tablet Mode
+@include tablet {
+	@include m--build-grid(tablet);
+}
+
+//== Tablet & Mobile Modes
+@include tablet-and-mobile {
+	@include m--build-grid(tablet-and-mobile);
+}
+
+//== Mobile Mode
+@include mobile {
+	@include m--build-grid(mobile);
+}

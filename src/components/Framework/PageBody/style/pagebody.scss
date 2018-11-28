@@ -1,0 +1,61 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/26 15:03
+ */
+
+.sh-body {
+	.sh-header--static & {
+		//height: calc(100% - #{array-get($sh-header, header, default, height, desktop)});
+	}
+
+	.sh-content {
+		padding: array-get($sh-body, body, content, padding, desktop, y) array-get($sh-body, body, content, padding, desktop, x);
+	}
+
+	.sh-content--skin-light & {
+		background-color: #ffffff;
+	}
+
+	.sh-content--skin-light2 & {
+		background-color: #f2f3f8;
+	}
+}
+
+body {
+	.sh-content--skin-light {
+		background-color: #ffffff;
+	}
+
+	.sh-content--skin-light2 {
+		background-color: #f2f3f8;
+	}
+}
+
+@include desktop {
+	.sh-body {
+		.sh-header--fixed & {
+			padding-top: array-get($sh-header, header, default, height, desktop) !important;
+		}
+	}
+}
+
+@include tablet-and-mobile {
+	.sh-body {
+		.sh-header--fixed-mobile & {
+			@include transition(padding-top array-get($sh-header, header, fixed, transition));
+			padding-top: array-get($sh-header, header, default, height, mobile) !important;
+		}
+
+		.sh-header--fixed-mobile.sh-header--minimize & {
+			padding-top: array-get($sh-header, header, fixed, minimize, height, mobile);
+		}
+
+		.sh-content {
+			padding: array-get($sh-body, body, content, padding, mobile, y) array-get($sh-body, body, content, padding, mobile, x);
+
+			.sh-aside-right--enabled & {
+				padding-bottom: 0;
+			}
+		}
+	}
+}

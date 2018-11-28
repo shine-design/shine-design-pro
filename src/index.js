@@ -3,6 +3,7 @@ import Route from './routers';
 import {app} from './connect';
 import models from './models';
 import {onInit} from './handler';
+import './styles/base.scss';
 import * as serviceWorker from './serviceWorker';
 
 app.model(models);

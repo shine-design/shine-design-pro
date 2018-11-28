@@ -1,0 +1,9 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/28 17:32
+ */
+
+@mixin fix-animation-lags() {
+	@include transform(translateZ(0));
+	-webkit-transform-style: preserve-3d;
+}

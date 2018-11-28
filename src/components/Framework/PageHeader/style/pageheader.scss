@@ -1,0 +1,120 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/24 14:33
+ */
+
+.sh-header {
+	.sh-page--wide &,
+	.sh-page--fluid & {
+		background-color: array-get($sh-header, header, default, bg-color);
+	}
+
+	.sh-page--boxed & {
+		.sh-header-head {
+			background-color: array-get($sh-header, header, default, bg-color);
+		}
+	}
+}
+
+@include desktop {
+	.sh-header {
+		height: array-get($sh-header, header, default, height, desktop);
+
+		.sh-header--fixed & {
+			@include transition(array-get($sh-header, header, fixed, transition));
+			@include fix-fixed-position-lags();
+			z-index: array-get($sh-header, header, fixed, zindex);
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.sh-header-head {
+			@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+
+			.sh-header--static.sh-aside-left--fixed & {
+				@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+				padding-left: array-get($sh-aside, aside-left, self, default, width);
+			}
+
+			.sh-header--static.sh-aside-left--fixed.sh-aside-left--minimize & {
+				@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+				padding-left: array-get($sh-aside, aside-left, self, minimize, width);
+			}
+		}
+
+		.sh-header--fixed.sh-header--hide & {
+			height: array-get($sh-header, header, default, height, desktop);
+			@include transition(array-get($sh-header, header,fixed, hidable, transition-hide));
+			@include transform(translateY(-100%));
+		}
+
+		.sh-header--fixed.sh-header--show & {
+			height: array-get($sh-header, header, default, height, desktop);
+			@include transition(array-get($sh-header, header, fixed, hidable, transition-show));
+			@include transform(translateY(0));
+		}
+	}
+
+	body .sh-aside-left--skin-dark {
+		.sh-header {
+			.sh-header-head {
+				@include shadow(get-shadow(light, '-'));
+			}
+		}
+	}
+
+	body .sh-aside-left--skin-light {
+		.sh-header {
+			@include shadow(get-shadow(light, '-'));
+		}
+	}
+}
+
+@include tablet-and-mobile {
+	.sh-header {
+		height: array-get($sh-header, header, default, height, mobile) !important;
+
+		.sh-header__nav {
+			top: -100%;
+			position: relative;
+		}
+
+		> .sh-container > .sh-grid {
+			height: array-get($sh-header, header, default, height, mobile);
+			> .sh-grid__col {
+				height: array-get($sh-header, header, default, height, mobile);
+			}
+		}
+
+		.sh-header--fixed-mobile & {
+			@include fix-fixed-position-lags();
+			z-index: array-get($sh-header, header, fixed, zindex);
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.sh-header--fixed-mobile.sh-header--hide & {
+			height: array-get($sh-header, header, default, height, mobile);
+			@include transition(array-get($sh-header, header, fixed, hidable, transition-hide));
+			@include transform(translateY(-100%));
+		}
+
+		.sh-header--fixed-mobile.sh-header--show & {
+			height: array-get($sh-header, header, default, height, mobile);
+			@include transition(array-get($sh-header, header, fixed, hidable, transition-show));
+			@include transform(translateY(0));
+		}
+	}
+
+	.sh-header--fixed-mobile {
+		.sh-header {
+			.sh-header-head {
+				@include shadow(get-shadow(light, '-'));
+			}
+		}
+	}
+}

@@ -1,5 +1,3 @@
-import login from './login';
-import user from './user';
-// const login = require('./login');
+import Core from './core';
 
-export default [login, user];
+export default [...Core];

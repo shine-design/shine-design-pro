@@ -1,0 +1,24 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/21 13:33
+ */
+@mixin animation($animation) {
+  -webkit-animation: #{$animation};
+  -moz-animation: #{$animation};
+  -ms-animation: #{$animation};
+  -o-animation: #{$animation};
+  animation: #{$animation};
+
+
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    animation: none !important;
+  }
+}
+
+@mixin animation-fill-mode($mode) {
+  -webkit-animation-fill-mode: #{$mode};
+  -moz-animation-fill-mode: #{$mode};
+  -ms-animation-fill-mode: #{$mode};
+  -o-animation-fill-mode: #{$mode};
+  animation-fill-mode: #{$mode};
+}

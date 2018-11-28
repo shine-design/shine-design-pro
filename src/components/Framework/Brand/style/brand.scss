@@ -1,0 +1,178 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/25 14:15
+ */
+
+@mixin sh-build-brand-base($layout) {
+	.sh-brand {
+		@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+		height: array-get($sh-config-header, header, default, height, desktop);
+		width: array-get($layout, self, width, default);
+		padding: array-get($layout, self, padding, desktop);
+
+		.sh-brand--hidden & {
+			display: none;
+		}
+
+		.sh-brand__logo {
+			vertical-align: middle;
+			line-height: 0;
+
+			.sh-brand__logo-wrapper {
+				display: inline-block;
+				height: auto;
+			}
+
+		}
+
+		.sh-brand__tools {
+			line-height: 0;
+			vertical-align: middle;
+			text-align: right;
+
+			@include sh-build--toggler(sh-brand__toggler, array-get($layout, tools, toggler));
+
+			.sh-brand__toggler {
+				@include sh-customize--toggler-color(sh-brand__toggler, array-get($layout, tools, toggler, color));
+			}
+
+			.sh-brand__icon {
+				display: inline-block;
+				line-height: 0;
+				vertical-align: middle;
+				cursor: pointer;
+
+				> i {
+					font-size: array-get($layout, tools, icon, font-size);
+					color: array-get($layout, tools, icon, color, default);
+				}
+
+				&:hover {
+					text-decoration: none;
+
+					> i {
+						color: array-get($layout, tools, icon, color, hover);
+					}
+				}
+			}
+		}
+
+		&.sh-brand--skin-dark {
+			background: array-get($layout, self, bg-color, dark);
+
+			.sh-brand__tools {
+				.sh-brand__toggler {
+					@include sh-customize--toggler-color(sh-brand__toggler, array-get($layout, tools, toggler, color, dark));
+				}
+
+				.sh-brand__icon {
+					> i {
+						color: array-get($layout, tools, icon, color, dark, default);
+					}
+
+					&:hover {
+						text-decoration: none;
+
+						> i {
+							color: array-get($layout, tools, icon, color, dark, hover);
+						}
+					}
+				}
+			}
+		}
+
+		&.sh-brand--skin-light {
+			background: array-get($layout, self, bg-color, light);
+
+			.sh-brand__tools {
+				.sh-brand__toggler {
+					@include sh-customize--toggler-color(sh-brand__toggler, array-get($layout, tools, toggler, color, light));
+				}
+
+				.sh-brand__icon {
+					> i {
+						color: array-get($layout, tools, icon, color, light, default);
+					}
+
+					&:hover {
+						text-decoration: none;
+
+						> i {
+							color: array-get($layout, tools, icon, color, light, hover);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@include desktop {
+		.sh-brand {
+			.sh-brand__logo,
+			.sh-brand__tools {
+				@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+				height: array-get($sh-config-header, header, default, height, desktop) !important;
+			}
+
+			.sh-brand--minimize & {
+				@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+				width: array-get($layout, self, width, minimize);
+				padding-left: 0;
+				padding-right: 0;
+
+				.sh-brand__logo {
+					display: none !important;
+				}
+
+				.sh-brand__tools {
+					text-align: center;
+				}
+			}
+
+			.sh-header--static.sh-aside-left--fixed & {
+				position: fixed;
+				height: array-get($sh-config-header, header, default, height, desktop) !important;
+				top: 0;
+				bottom: auto;
+
+				.sh-brand__tools,
+				.sh-brand__logo {
+					height: array-get($sh-config-header, header, default, height, desktop) !important;
+					@include transition(array-get($sh-aside, aside-left, self, minimize, transition));
+				}
+			}
+
+			.sh-brand__logo-img {
+				height: array-get($sh-config-header, header, default, height, desktop);
+			}
+
+		}
+	}
+
+	@include tablet-and-mobile {
+		.sh-brand {
+			width: 100%;
+			position: relative;
+			height: array-get($sh-config-header, header, default, height, mobile) !important;
+			padding: array-get($layout, self, padding, mobile);
+			z-index: 2;
+
+			.sh-brand__tools {
+				.sh-brand__icon {
+					margin-left: array-get($layout, tools, self, space, mobile);
+
+					.flaticon-more {
+						position: relative;
+						top: 1px;
+					}
+				}
+			}
+
+			.sh-brand__logo-img {
+				height: array-get($sh-config-header, header, default, height, mobile);
+			}
+		}
+	}
+}
+
+@include sh-build-brand-base(array-get($sh-config-header, brand));

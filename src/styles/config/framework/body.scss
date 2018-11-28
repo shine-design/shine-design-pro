@@ -1,0 +1,25 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/26 15:12
+ */
+
+$sh-body: (
+	body: (
+		content: (
+			padding: (
+				desktop: (
+					x: 30px,
+					y: 30px
+				),
+				mobile: (
+					x: 20px,
+					y: 20px
+				)
+			),
+			bg-color: (
+				light: #ffffff,
+				light2: #f2f3f8
+			)
+		)
+	)
+);

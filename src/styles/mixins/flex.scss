@@ -1,0 +1,132 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/26 16:04
+ */
+
+@mixin flexbox() {
+	display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox;      /* TWEENER - IE 10 */
+	display: -webkit-flex;     /* NEW - Chrome */
+	display: flex;
+}
+
+@mixin flexbox-orient-hor() {
+	-webkit-box-orient: horizontal;
+	-moz-box-orient: horizontal;
+	-ms-box-orient: horizontal;
+	box-orient: horizontal;
+	-ms-flex-direction: row;
+}
+
+@mixin flexbox-orient-ver() {
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	box-orient: vertical;
+}
+
+@mixin flexbox-order($order) {
+	-webkit-box-ordinal-group: $order;
+	-moz-box-ordinal-group: $order;
+	-ms-flex-order: $order;
+	-webkit-order: $order;
+	order: $order;
+}
+
+@mixin flexbox-flex($flex) {
+	/* previous syntax */
+	-webkit-box-flex: $flex;
+	-moz-box-flex: $flex;
+	-ms-box-flex: $flex;
+	box-flex: $flex;
+
+	/* current syntax */
+	-webkit-flex: $flex;
+	-moz-flex: $flex;
+	-ms-flex: $flex;
+	flex: $flex;
+}
+
+@mixin flexbox-flow($flow) {
+	/* previous syntax */
+	-webkit-box-flow: $flow;
+	-moz-box-flow: $flow;
+	-ms-box-flow: $flow;
+	box-flow: $flow;
+
+	/* current syntax */
+	-webkit-flow: $flow;
+	-moz-flow: $flow;
+	-ms-flow: $flow;
+	flow: $flow;
+}
+
+@mixin flexbox-wrap($wrap) {
+	/* previous syntax */
+	-webkit-box-wrap: $wrap;
+	-moz-box-wrap: $wrap;
+	-ms-box-wrap: $wrap;
+	box-wrap: $wrap;
+
+	/* current syntax */
+	-webkit-wrap: $wrap;
+	-moz-wrap: $wrap;
+	-ms-wrap: $wrap;
+	wrap: $wrap;
+}
+
+@mixin flexbox-direction($dir) {
+	-ms-flex-direction: $dir;
+	-moz-flex-direction: $dir;
+	flex-direction: $dir;
+	-webkit-flex-direction: $dir;
+}
+
+@mixin flexbox-justify-content($value) {
+	-webkit-justify-content: $value;
+	-moz-justify-content: $value;
+	-ms-justify-content: $value;
+	justify-content: $value;
+}
+
+
+@mixin flexbox-align-items($value) {
+	-webkit-align-items: $value;
+	-moz-align-items: $value;
+	-ms-align-items: $value;
+	align-items: $value;
+}
+
+//== Clearfix
+
+//== Vertical and Horizontal center
+@mixin vertical-horizontal-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include transform(translate(-50%, -50%));
+}
+
+//== Vertical center
+@mixin vertical-center {
+	position: absolute;
+	top: 50%;
+	@include transform(translate(-50%));
+}
+
+//== Vertical bottom
+@mixin vertical-bottom {
+	position: absolute;
+	top: 100%;
+	@include transform(translate(-100%));
+}
+
+//== Vertical and Horizontal center using flexbox
+@mixin vertical-horizontal-center-flexbox {
+	@include flexbox();
+	@include flexbox-justify-content(center);
+	@include flexbox-align-items(center);
+	text-align: center;
+	vertical-align: middle;
+}

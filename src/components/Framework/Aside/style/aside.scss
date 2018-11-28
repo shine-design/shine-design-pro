@@ -1,0 +1,161 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/26 15:51
+ */
+
+@mixin sh-build-aside-left-base($layout) {
+	.sh-aside-left {
+		@include transition(array-get($layout, self, minimize, transition));
+		width: array-get($layout, self, default, width);
+
+		&.sh-aside-left--skin-dark {
+			background-color: array-get($layout, self, default, bg-color, dark);
+		}
+
+		&.sh-aside-left--skin-light {
+			background-color: array-get($layout, self, default, bg-color, light);
+		}
+	}
+
+	.sh-aside-left.sh-aside-left-offcanvas-default {
+		.sh-aside-left {
+			top: array-get($sh-header, header, layout, self, default, height, desktop) !important;
+		}
+
+		.sh-body {
+			padding-left: 0 !important;
+		}
+	}
+
+	.sh-aside-left--hide {
+		.sh-aside-left {
+			width: 0;
+			overflow: hidden;
+		}
+
+		.sh-body {
+			padding-left: 0 !important;
+		}
+	}
+
+	@include desktop {
+		.sh-aside-left--minimize {
+			.sh-aside-left {
+				width: array-get($layout, self, minimize, width);
+				transition: array-get($layout, self, minimize, transition);
+			}
+		}
+
+		.sh-aside-left--fixed {
+			.sh-aside-left {
+				top: 0;
+				bottom:0;
+				position:fixed;
+				height: auto !important;
+				left: 0;
+				z-index: array-get($layout, self, fixed, zindex);
+				@include fix-fixed-position-lags();
+
+				&.sh-aside-left--skin-dark {
+					.ps {
+						@include sh-set-component--scrollable-skin( array-get($layout, self, fixed, scroller, color, dark) );
+					}
+				}
+
+				&.sh-aside-left--skin-light {
+					.ps {
+						@include sh-set-component--scrollable-skin( array-get($layout, self, fixed, scroller, color, light) );
+					}
+				}
+			}
+
+			&.sh-page--wide {
+				.sh-aside-left {
+					left: auto;
+				}
+			}
+
+			&.sh-header--static,
+			&.sh-header--fixed {
+				.sh-aside-left {
+					top: array-get($sh-header, header, default, height, desktop);
+				}
+			}
+
+			&.sh-header--fixed.sh-header--fixed-hidable.sh-header--hide {
+				.sh-aside-left {
+					@include transition(array-get($sh-header, header, fixed, hidable, transition-hide));
+					top: array-get($sh-header, header, fixed, minimize, height, desktop);
+				}
+			}
+
+			&.sh-header--fixed.sh-header--fixed-hidable.sh-header--show {
+				.sh-aside-left {
+					@include transition(array-get($sh-header, header, fixed, hidable, transition-show));
+					top: array-get($sh-header, header, fixed, minimize, height, desktop);
+				}
+			}
+
+			.sh-body {
+				@include transition(array-get($layout, self, minimize, transition));
+				padding-left: array-get($layout, self, default, width);
+			}
+
+			&.sh-page--wide.sh-aside-left--fixed {
+				.sh-body {
+					padding-left: 0;
+				}
+			}
+
+			&.sh-aside-left--minimize {
+				.sh-body {
+					@include transition(array-get($layout, self, minimize, transition));
+					padding-left: array-get($layout, self, minimize, width);
+				}
+			}
+
+			&.sh-page--boxed {
+				.sh-aside-left {
+					left: auto;
+					margin-left: -(array-get($layout, self, default, width));
+				}
+
+				&.sh-aside-left--minimize {
+					.sh-aside-left {
+						margin-left: -($sh-aside-left-width-minimize);
+					}
+				}
+			}
+		}
+
+		.sh-aside-left--fixed.sh-aside-left--minimize-hover {
+			transition: array-get($layout, self, minimize, transition);
+
+			.sh-aside-left {
+				width: array-get($layout, self, default, width);
+				transition: array-get($layout, self, minimize, transition);
+			}
+
+			.sh-body {
+				transition: array-get($layout, self, minimize, transition);
+				padding-left: array-get($layout, self, minimize, width);
+			}
+		}
+	}
+
+	@include tablet-and-mobile {
+		.sh-aside-left.sh-aside-left-offcanvas-default {
+			.sh-aside-left {
+				top: 0 !important;
+			}
+		}
+
+		.sh-aside-left {
+			padding-top: 10px;
+		}
+	}
+}
+
+@include sh-build-aside-left-base( array-get($sh-aside, aside-left) );
+
+@include sh-generate-component--offcanvas(sh-aside-left, tablet-and-mobile, array-get($sh-aside, aside-left, self, offcanvas, tablet-and-mobile) );

@@ -1,0 +1,1291 @@
+//
+//** Vertical Menu Generator Helpers
+// 
+
+//////////////////////////////////////
+//== Menu Item Population Helpers ==//
+//////////////////////////////////////
+
+//== Populate menu item base
+@mixin sh-populate--menu-ver-item-base($item) {
+	// item
+	margin: array-get($item, self, margin); 
+
+	// item link and heading
+	> .sh-menu__heading,
+	> .sh-menu__link {
+		cursor: pointer;
+		height: array-get($item, link, self, height);
+
+		// menu item link's text part
+		.sh-menu__link-text {								
+			font-weight: array-get($item, link, text, font-weight);	
+			font-size: array-get($item, link, text, font-size);
+			text-transform: array-get($item, link, text, font-transform);
+		}
+
+		// menu item link's icon
+		.sh-menu__link-icon {
+			text-align: array-get($item, link, icon, align);
+			width: array-get($item, link, icon, width);
+			font-size: array-get($item, link, icon, font-size);
+		}
+
+		// menu item link's bullet
+		.sh-menu__link-bullet {
+			vertical-align: middle;
+			text-align: left;
+			width: array-get($item, link, bullet, self, width);
+
+			> span {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+			&.sh-menu__link-bullet--dot {
+				> span {
+					width: array-get($item, link, bullet, dot, size);
+					height: array-get($item, link, bullet, dot, size);
+					border-radius: 100%;
+				}
+			}
+
+			&.sh-menu__link-bullet--line {				
+				> span {
+					width: array-get($item, link, bullet, line, width);
+					height: array-get($item, link, bullet, line, height);
+				}
+			}
+		}
+
+		// menu item link's icon part
+		.sh-menu__link-badge {
+			padding: array-get($item, link, badge, padding);
+			text-align: array-get($item, link, badge, align);
+		}
+
+		// menu item link's arrow part
+		.sh-menu__ver-arrow {
+			text-align: array-get($item, link, arrow, align);
+			width: array-get($item, link, arrow, width);
+			font-size: array-get($item, link, arrow, font-size);
+
+			&:before {		
+				display: inline-block;
+				transition: array-get($item, link, arrow, transition); 
+			}
+		}
+
+		// menu root level "here" arrow
+		.sh-menu__item-here {
+			display: none;
+		}
+	}	
+
+	// item link open state
+	&.sh-menu__item--open {
+		> .sh-menu__heading,
+		> .sh-menu__link {	
+
+			// menu item link's arrow part
+			.sh-menu__ver-arrow {
+				&:before {							
+					transition: array-get($item, link, arrow, transition); 
+				}
+			}
+		}
+	}
+}
+
+//== Populate menu item skin
+@mixin sh-populate--menu-ver-item-skin($item) {
+	// item	
+	@include attr(background-color, array-get($item, self, bg-color, default));
+
+	// item link and heading
+	> .sh-menu__heading,
+	> .sh-menu__link {
+		// menu item link's text part
+		.sh-menu__link-text {							
+			@include attr(color, array-get($item, link, text, font-color, default));	  
+		}
+
+		// menu item link's icon
+		.sh-menu__link-icon {
+			@include attr(color, array-get($item, link, icon, font-color, default));
+		}
+
+		// menu item link's bullet
+		.sh-menu__link-bullet {
+
+			&.sh-menu__link-bullet--dot {
+				> span {
+					@include attr(background-color, array-get($item, link, bullet, dot, bg-color, default));
+				}
+			}
+
+			&.sh-menu__link-bullet--line {				
+				> span {
+					@include attr(background-color, array-get($item, link, bullet, line, bg-color, default));
+				}
+			}
+		}
+
+		// menu item link's arrow part
+		.sh-menu__ver-arrow {
+			@include attr(color, array-get($item, link, arrow, font-color, default));
+		}
+	}
+
+	// item link open state
+	&.sh-menu__item--open {
+		transition: background-color 0.3s;
+		@include attr(background-color, array-get($item, self, bg-color, open));
+
+		> .sh-menu__heading,
+		> .sh-menu__link {								
+			@include attr(background-color, array-get($item, link, self, bg-color, open));
+
+			// menu item link's text part
+			.sh-menu__link-text {								
+				@include attr(color, array-get($item, link, text, font-color, open));
+			}
+
+			// menu item link's icon part
+			.sh-menu__link-icon {
+				@include attr(color, array-get($item, link, icon, font-color, open));
+			}
+
+			// menu item link's bullet
+			.sh-menu__link-bullet {
+				&.sh-menu__link-bullet--dot {					
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, dot, bg-color, open));
+					}
+				}
+
+				&.sh-menu__link-bullet--line {
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, line, bg-color, open));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.sh-menu__ver-arrow {
+				@include attr(color, array-get($item, link, arrow, font-color, open));
+			}
+		}
+	}
+
+	// item link open state
+	&.sh-menu__item--expanded {
+		transition: background-color 0.3s;
+		@include attr(background-color, array-get($item, self, bg-color, expanded));
+
+		> .sh-menu__heading,
+		> .sh-menu__link {								
+			@include attr(background-color, array-get($item, link, self, bg-color, expanded));
+
+			// menu item link's text part
+			.sh-menu__link-text {								
+				@include attr(color, array-get($item, link, text, font-color, expanded));
+			}
+
+			// menu item link's icon part
+			.sh-menu__link-icon {
+				@include attr(color, array-get($item, link, icon, font-color, expanded));
+			}
+
+			// menu item link's bullet
+			.sh-menu__link-bullet {
+				&.sh-menu__link-bullet--dot {					
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, dot, bg-color, expanded));
+					}
+				}
+
+				&.sh-menu__link-bullet--line {
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, line, bg-color, expanded));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.sh-menu__ver-arrow {
+				@include attr(color, array-get($item, link, arrow, font-color, expanded));
+			}
+		}
+	}	
+
+	// item link active state
+	&.sh-menu__item--active {
+		transition: background-color 0.3s;
+		@include attr(background-color, array-get($item, self, bg-color, active));
+
+		> .sh-menu__heading,
+		> .sh-menu__link {								
+			@include attr(background-color, array-get($item, link, self, bg-color, active));
+
+			// menu item link's text part
+			.sh-menu__link-text {								
+				@include attr(color, array-get($item, link, text, font-color, active));
+			}
+
+			// menu item link's icon part
+			.sh-menu__link-icon {
+				@include attr(color, array-get($item, link, icon, font-color, active));
+			}
+
+			// menu item link's bullet
+			.sh-menu__link-bullet {
+				&.sh-menu__link-bullet--dot {					
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, dot, bg-color, active));
+					}
+				}
+
+				&.sh-menu__link-bullet--line {
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, line, bg-color, active));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.sh-menu__ver-arrow {
+				@include attr(color, array-get($item, link, arrow, font-color, active));
+			}
+		}
+	}
+
+	// item link hover state
+	&:not(.sh-menu__item--parent):not(.sh-menu__item--open):not(.sh-menu__item--expanded):not(.sh-menu__item--active):hover {
+		transition: background-color 0.3s;
+		@include attr(background-color, array-get($item, self, bg-color, hover));
+
+		> .sh-menu__heading,
+		> .sh-menu__link {								
+			@include attr(background-color, array-get($item, link, self, bg-color, hover));
+
+			// menu item link's text part
+			.sh-menu__link-text {								
+				@include attr(color, array-get($item, link, text, font-color, hover));
+			}
+
+			// menu item link's icon part
+			.sh-menu__link-icon {
+				@include attr(color, array-get($item, link, icon, font-color, hover));
+			}
+
+			// menu item link's bullet
+			.sh-menu__link-bullet {
+				&.sh-menu__link-bullet--dot {					
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, dot, bg-color, hover));
+					}
+				}
+
+				&.sh-menu__link-bullet--line {
+					> span {
+						@include attr(background-color, array-get($item, link, bullet, line, bg-color, hover));
+					}
+				}
+			}
+
+			// menu item link's arrow part
+			.sh-menu__ver-arrow {
+				@include attr(color, array-get($item, link, arrow, font-color, hover));
+			}
+		}
+	}	
+}
+
+@mixin sh-populate--menu-ver-item-arrow-base($arrow) {	
+	@if smooth-arrow() {
+		@include sh--build-smooth-arrow-horizontal(left, default);
+		position: absolute;
+		top: array-get($arrow, smooth, top);
+		left: auto;
+		right: array-get($arrow, smooth, right);
+		margin: array-get($arrow, smooth, margin);
+	} @else {
+		@include sh--build-classic-arrow(left, array-get($arrow, classic, size));
+		top: 0;
+		left: auto;
+		right: 0;
+		position: absolute;
+		margin-top: array-get($arrow, classic, offset, arrow);
+		margin-left: 0;
+	}
+}			
+
+@mixin sh-populate--menu-ver-item-arrow-skin($color) {	
+	@if smooth-arrow() {
+		> .sh-menu__arrow {
+			color: $color;	
+		}
+	} @else {
+		> .sh-menu__arrow {
+			@include sh--set-classic-arrow-bg(right, $color);
+		}
+	}
+}
+
+//== Populate menu section base
+@mixin sh-populate--menu-ver-section-base($section) {
+	margin: array-get($section, self, margin);
+	height: array-get($section, self, height);
+
+	.sh-menu__section-text {
+		font-size: array-get($section, text, font-size);
+		font-weight: array-get($section, text, font-weight);
+		text-transform: array-get($section, text, font-transform);
+		letter-spacing: array-get($section, text, letter-spacing);
+	}
+
+	.sh-menu__section-icon {
+		font-size: array-get($section, icon, font-size);
+	}
+}
+
+//== Populate menu section skin
+@mixin sh-populate--menu-ver-section-skin($section) {
+	.sh-menu__section-text {
+		@include attr(color, array-get($section, text, font-color));
+	}
+
+	.sh-menu__section-icon {
+		@include attr(color, array-get($section, icon, font-color));
+	}
+}
+
+//== Populate menu separator
+@mixin sh-populate--menu-ver-separator-base($separator) {
+	margin: array-get($separator, margin);
+
+	.sh-menu__separator--marginles {
+		margin: 0;
+	}
+}
+
+//== Populate menu separator skin
+@mixin sh-populate--menu-ver-separator-skin($separator) {
+	@include attr(border-bottom, array-get($separator, border));
+}
+
+//== Populate minimize menu parent item base
+@mixin sh-populate--menu-ver-minimize-parent-item-base($item) {
+	// item
+	margin: array-get($item, self, margin); 
+
+	// item link and heading
+	> .sh-menu__link {
+		height: array-get($item, link, self, height);
+		padding: array-get($item, link, self, padding); 
+
+		// menu item link's text part
+		.sh-menu__link-text {								
+			font-weight: array-get($item, link, text, font-weight);	
+			font-size: array-get($item, link, text, font-size);
+			text-transform: array-get($item, link, text, font-transform);
+			cursor: text !important;
+		}
+
+		// menu item link's icon part
+		.sh-menu__link-badge {
+			padding: array-get($item, link, badge, padding);
+			text-align: array-get($item, link, badge, align);
+		}
+	}
+}
+
+//== Populate minimize menu parent item skin
+@mixin sh-populate--menu-ver-minimize-parent-item-skin($item) {
+	// item
+	@include attr(background-color, array-get($item, self, bg-color, default));
+
+	// item link and heading
+	> .sh-menu__link {
+		// menu item link's text part  
+		> .sh-menu__link-text {								
+			@include attr(color, array-get($item, link, text, font-color, default));
+		}
+	}
+}
+
+/////////////////////////////////
+//== Menu Population Helpers ==//
+/////////////////////////////////
+
+//== Populate menu base
+@mixin sh-populate--menu-ver-base($base-config, $layout) {
+	.#{array-get($base-config, class)} {		
+		// menu nav
+		.sh-menu__nav {
+			list-style: none;
+			padding: array-get($layout, default, self, padding);
+			@include clearfix();
+
+			//== Base markup
+
+			.sh-menu__subnav {
+				padding: 0;
+				width: 100%;
+				margin: 0;
+				list-style: none !important;
+			}
+
+			// general submenu
+			.sh-menu__inner,
+			.sh-menu__submenu {
+				display: none;
+				float: none;
+				margin: 0;
+				padding: 0;
+
+				@if array-get($base-config, mode) == "tablet-and-mobile" or array-get($base-config, mode) == "mobile" {
+					width: auto !important;
+				} 
+
+				.sh-menu__content {
+					padding: 0;
+					margin: 0;
+
+					> .sh-menu__item {
+						padding: 0;
+						margin: 0;
+						list-style: none;
+
+						&.sh-menu--no-heading {  
+							> .sh-menu__inner {
+								display: block;
+
+								> li > .sh-menu__link {
+	   							margin: 0;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// general item
+			.sh-menu__item {
+				display: block;
+				float: none;
+				height: auto;
+				padding: 0;
+
+				// item link and heading
+				> .sh-menu__heading,
+				> .sh-menu__link {
+					display: table;
+					table-layout: fixed;
+					width: 100%;
+					margin: 0;					
+					text-decoration: none;
+					position: relative;	
+					outline: none;					
+					padding: 0;
+
+					&:hover {
+						text-decoration: none;
+						cursor: pointer;
+					}
+
+					.sh-menu__link-text {								
+						display: table-cell;
+						height: 100%;
+						width: 100%;
+						padding: 0;
+						vertical-align: middle;
+					}
+
+					.sh-menu__link-title {								
+						display: table-cell;
+						height: 100%;
+						padding: 0;
+						vertical-align: middle;
+
+						> .sh-menu__link-wrap {								
+							display: table;
+							height: 100%;
+							width: 100%;
+							padding: 0;	
+							vertical-align: middle;	
+
+							// menu item link's icon part
+							> .sh-menu__link-badge {
+								display: table-cell;
+								height: 100%;
+								vertical-align: middle;		
+								white-space: nowrap;				
+							}
+						}						
+					}
+
+					// menu item link's icon part
+					.sh-menu__link-icon {
+						display: table-cell;
+						height: 100%;
+						vertical-align: middle;
+						line-height: 0;
+					}
+
+					// menu item link's icon part
+					.sh-menu__link-bullet {
+						display: table-cell;
+						height: 100%;
+						vertical-align: middle;
+						line-height: 0;
+					}
+
+					// menu item link's arrow part
+					.sh-menu__ver-arrow {
+						display: table-cell;
+						vertical-align: middle;
+						line-height: 0;
+						height: 100%;
+
+						&:before {					
+							-webkit-transform: translate3d(0,0,0);  
+						}				
+					}
+
+					.sh-menu__hor-arrow {
+						display: none;
+					}
+				}
+
+				// item link open state
+				&.sh-menu__item--open {
+					> .sh-menu__heading,
+					> .sh-menu__link {		
+						// menu item link's arrow part
+						> .sh-menu__ver-arrow {
+							&:before {  
+								transform: rotateZ(90deg)#{'/*rtl:ignore*/'};
+							}
+						}
+					}
+
+					> .sh-menu__submenu,
+					> .sh-menu__inner {
+						display: block;
+					}
+				}
+
+				// headingless 
+				&.sh-menu--headingles {  
+					> .sh-menu__inner {
+						.sh-menu__link {
+	    					//padding-left: array-get($layout, default, item, link, padding-left);
+						}	
+					}
+				}
+
+				// submenu items
+				.sh-menu__submenu {
+					// submenu item
+					.sh-menu__item {
+						// item link and heading
+						> .sh-menu__heading,
+						> .sh-menu__link {				
+							padding: array-get($layout, default, item, submenu, item, link, padding);
+						}
+					}
+
+					// parent item used for minimized menu's dropdown submenus
+					.sh-menu__item--parent {
+						display: none;
+					}
+				}
+			}
+
+			// general section
+			.sh-menu__section {
+				display: table;
+				width: 100%;
+				vertical-align: middle;
+				padding: array-get($layout, default, section, self, padding);
+
+				&.sh-menu__section--first {
+					margin-top: 0 !important;
+				}
+
+				.sh-menu__section-text {
+					display: table-cell;
+					margin: 0;
+					padding: 0;
+					vertical-align: middle;
+				}
+
+				.sh-menu__section-icon {
+					display: none;
+					text-align: center;
+					vertical-align: middle;
+				}
+			}
+
+			// general separator
+			.sh-menu__separator {
+				height: 0;
+				overflow: hidden;
+
+				&.sh-menu__separator--marginles {
+					margin: 0;
+				}
+			}
+
+			//== Custom markup
+			// menu item
+			> .sh-menu__item {
+				position: relative;
+				@include sh-populate--menu-ver-item-base(array-get($layout, default, item));	
+
+				@if (array-has($layout, default, item, arrow)) {
+					> .sh-menu__arrow {
+						@include sh-populate--menu-ver-item-arrow-base(array-get($layout, default, item, arrow));
+						display: none;
+					}
+				}				
+				
+				.sh-menu__submenu {
+					.sh-menu__subnav {
+						margin: array-get($layout, default, item, submenu, margin);
+					}
+
+					// menu item
+					.sh-menu__item {
+						@include sh-populate--menu-ver-item-base(array-get($layout, default, item, submenu, item));	
+					}
+
+					// menu section
+					.sh-menu__section {
+						@include sh-populate--menu-ver-section-base(array-get($layout, default, item, submenu, section));	
+					}
+
+					// menu item separator
+					.sh-menu__separator {
+						@include sh-populate--menu-ver-separator-base(array-get($layout, default, item, submenu, separator));
+					}					
+				}
+			}
+
+			// menu section
+			> .sh-menu__section {
+				@include sh-populate--menu-ver-section-base(array-get($layout, default, section));	
+			}
+
+			// menu item separator
+			> .sh-menu__separator {
+				@include sh-populate--menu-ver-separator-base(array-get($layout, default, separator));
+			}
+
+			// submenu link paddings and indentions
+			// item
+			$item-link-padding: array-get($layout, default, item, link, self, padding);
+			$item-section-padding: array-get($layout, default, section, self, padding);
+							
+			// item submenu
+			$item-submenu-padding-left: array-get($layout, default, item, submenu, item, link, self, padding-x);
+
+			$item-submenu-indent: array-get($layout, default, item, submenu, self, indent);
+			$item-submenu-link-padding: array-get($layout, default, item, submenu, item, link, self, padding);
+				
+			$item-submenu-section-indent: array-get($layout, default, item, submenu, section, self, indent);
+			$item-submenu-section-padding: array-get($layout, default, item, submenu, section, padding);
+				
+			> .sh-menu__item {
+				> .sh-menu__link {
+					padding: $item-link-padding;
+				}
+
+				> .sh-menu__submenu {
+					.sh-menu__subnav {
+						// item link paddings
+						.sh-menu__content {
+							.sh-menu__heading {
+								padding: $item-submenu-link-padding;
+								padding-left: $item-submenu-padding-left + (2 * $item-submenu-section-indent); 
+							}
+
+							.sh-menu__inner {
+								padding: 0;
+								margin: 0;
+											
+								.sh-menu__link {
+									padding: $item-submenu-link-padding;
+									padding-left: $item-submenu-padding-left + (3 * $item-submenu-section-indent);  
+								}
+							}	
+						}								
+
+						> .sh-menu__item {
+							> .sh-menu__link {
+								padding: $item-submenu-link-padding;
+								padding-left: $item-submenu-padding-left + (1 * $item-submenu-indent); 
+							}
+
+							> .sh-menu__submenu {
+								.sh-menu__subnav {
+									padding: 0;
+									> .sh-menu__item {
+										> .sh-menu__link {
+											padding: $item-submenu-link-padding;
+											padding-left: $item-submenu-padding-left + (2 * $item-submenu-indent); 
+										}   
+
+										> .sh-menu__submenu {
+											.sh-menu__subnav {
+												padding: 0;
+
+												> .sh-menu__item {
+													> .sh-menu__link {
+														padding: $item-submenu-link-padding;
+														padding-left: $item-submenu-padding-left + (3 * $item-submenu-indent); 
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+							
+						// section paddings
+						> .sh-menu__section {
+							padding: $item-submenu-section-padding;
+							padding-left:$item-submenu-padding-left + (1 * $item-submenu-section-indent); 
+						}
+
+						> .sh-menu__item {
+							> .sh-menu__submenu {
+								.sh-menu__subnav {
+									padding: 0;
+
+									> .sh-menu__section {
+										padding: $item-submenu-section-padding;
+										padding-left: $item-submenu-padding-left + (2 * $item-submenu-section-indent); 
+									}   
+
+									> .sh-menu__item {
+										> .sh-menu__submenu {
+											.sh-menu__subnav {
+												padding: 0;
+
+												> .sh-menu__section {
+													padding: $item-submenu-section-padding;
+													padding-left:$item-submenu-padding-left + (3 * $item-submenu-section-indent); 
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+}
+
+//== Populate menu skin
+@mixin sh-populate--menu-ver-skin($base-config, $layout, $skin) {
+	.#{array-get($base-config, class)}.#{array-get($base-config, class)}--skin-#{$skin} {
+		@include attr(background-color, array-get($layout, default, self, bg-color));
+
+		.sh-menu__nav {
+			// menu item
+			> .sh-menu__item {
+				@include sh-populate--menu-ver-item-skin(array-get($layout, default, item));	
+
+				> .sh-menu__arrow {
+					@if smooth-arrow() {
+						color: array-get($layout, default, self, bg-color);	
+					} @else {
+						@include sh--set-classic-arrow-bg(left, array-get($layout, default, self, bg-color));
+					}
+				}
+			}
+
+			// menu section
+			> .sh-menu__section {
+				@include sh-populate--menu-ver-section-skin(array-get($layout, default, section));	
+			}
+
+			// menu item separator
+			> .sh-menu__separator {
+				@include sh-populate--menu-ver-separator-skin(array-get($layout, default, separator));
+			}
+
+			// menu item
+			> .sh-menu__item {
+				.sh-menu__submenu {
+					.sh-menu__subnav {
+						@include attr(background-color, array-get($layout, default, item, submenu, self, bg-color, default));
+					}
+					// menu item
+					.sh-menu__item {
+						@include sh-populate--menu-ver-item-skin(array-get($layout, default, item, submenu, item));	
+					}
+
+					// menu section
+					.sh-menu__section {
+						@include sh-populate--menu-ver-section-skin(array-get($layout, default, item, submenu, section));	
+					}
+
+					// menu item separator
+					.sh-menu__separator {
+						@include sh-populate--menu-ver-separator-skin(array-get($layout, default, item, submenu, separator));
+					}					
+				}
+			}
+		}	
+	}
+}
+
+//== Populate menu dropdown base
+@mixin sh-populate--menu-ver-dropdown-base($base-config, $layout) {
+	// base dropdown submenu
+	.#{array-get($base-config, parent-class)}--minimize .#{array-get($base-config, class)},
+	.#{array-get($base-config, class)}.#{array-get($base-config, class)}--dropdown {
+		.sh-menu__nav {
+			.sh-menu__item:not([sh-menu-submenu-mode='accordion']) {
+				// set proper position for all arrow icons in dropdown menu mode
+				> .sh-menu__link {
+					> .sh-menu__ver-arrow {
+						&:before {
+							@include fix-animation-lags();
+						}
+					}
+				}
+
+				> .sh-menu__submenu {
+					display: none !important; 
+					@include fix-animation-lags();
+				}
+
+				&.sh-menu__item--hover {
+					position: relative;
+					z-index: array-get($layout, dropdown, item, self, zindex); 
+
+					// submenu
+					> .sh-menu__submenu {
+						top: array-get($layout, dropdown, item, submenu, self, offset, inner, default);
+						position: absolute;
+						display: block !important; 
+						width: array-get($layout, dropdown, item, submenu, self, width);
+						margin-left: array-get($layout, dropdown, item, submenu, self, width);
+
+						// submenu position
+						&.sh-menu__submenu--up {
+							bottom: 0;
+							top: auto;
+						}
+
+						// submenu animation
+					 	@include animation('sh-aside-menu-submenu-fade-in .3s ease 1, sh-aside-menu-submenu-move-up .3s ease-out 1');
+
+					 	&.sh-menu__submenu--up {
+					 		top: auto;
+					 		bottom: array-get($layout, dropdown, item, submenu, self, offset, inner, up);
+
+					 		@include animation('sh-aside-menu-submenu-fade-in .3s ease 1, sh-aside-menu-submenu-move-down .3s ease-out 1');
+
+					 		// ie8-11 versions hack
+	                    	@include hack-ie8-11 {
+	                        	@include animation(none);
+	                    	}
+					 	}
+
+						.sh-menu__subnav {
+							padding: array-get($layout, dropdown, item, submenu, self, padding); 
+
+							@include rounded {
+								border-radius: array-get($layout, dropdown, item, submenu, self, border-radius);
+							}
+
+							// menu item
+							> .sh-menu__item {
+								.sh-menu__link {
+									text-align: left;
+									padding: array-get($layout, dropdown, item, submenu, item, link, self, padding); 
+
+									// menu item link's text part
+									.sh-menu__link-title {					
+										display: table-cell;
+										width: 100%;		
+									}
+
+									.sh-menu_link-text {
+										@include fix-animation-lags();
+									}
+
+									// menu item link's icon part
+									.sh-menu__link-icon {
+										display: table-cell;
+									}
+
+									// menu item link's bullet part
+									.sh-menu__link-bullet {
+										display: table-cell;
+									}
+
+									// menu item link's icon part
+									.sh-menu__link-badge {		
+										display: table-cell;		
+									}
+
+									// menu item link's arrow part
+									.sh-menu__ver-arrow {
+										display: table-cell;
+									}
+								}	
+
+								.sh-menu__submenu {
+									.sh-menu__subnav {
+										padding: array-get($layout, dropdown, item, submenu, self, padding); 
+
+										> .sh-menu__item {
+											> .sh-menu__link {
+												padding: array-get($layout, dropdown, item, submenu, item, link, self, padding); 
+											}
+											
+											.sh-menu__submenu {
+												.sh-menu__subnav {
+													padding: array-get($layout, dropdown, item, submenu, self, padding); 
+
+													> .sh-menu__item {
+														> .sh-menu__link {
+															padding: array-get($layout, dropdown, item, submenu, item, link, self, padding); 
+														}
+													}
+												}
+											}
+										}
+
+										> .sh-menu__section {
+											padding: array-get($layout, dropdown, item, submenu, section, self, padding); 
+										}
+									}
+								}
+
+								@include sh-populate--menu-ver-item-base(array-get($layout, dropdown, item, submenu, item));	
+							}
+
+							// menu section
+							> .sh-menu__section {
+								@include sh-populate--menu-ver-section-base( array-get($layout, dropdown, item, submenu, section) );	
+							}
+
+							// menu separator
+							> .sh-menu__separator {
+								@include sh-populate--menu-ver-separator-base( array-get($layout, dropdown, item, submenu, separator) );
+							}	
+						}					
+					}
+				}					
+			}
+
+			> .sh-menu__item:not([sh-menu-submenu-mode='accordion']) {
+				&.sh-menu__item--hover {
+					> .sh-menu__submenu {
+						margin-left: array-get($layout, dropdown, item, submenu, self, parent-width);
+						top: array-get($layout, dropdown, item, submenu, self, offset, root, default);
+					
+						&.sh-menu__submenu--up {
+							bottom: array-get($layout, dropdown, item, submenu, self, offset, root, up);
+						}
+					} 
+				}
+			}
+		}
+
+		// dropdown arrow
+		@include sh-populate--menu-ver-dropdown-arrow-base( array-get($layout, dropdown, item, submenu, arrow) );	
+	}
+}
+
+//== Populate menu dropdown smooth arrow
+@mixin sh-populate--menu-ver-dropdown-arrow-base($layout) {
+	@if smooth-arrow() {
+		.sh-menu__nav.sh-menu__nav--dropdown-submenu-arrow .sh-menu__item.sh-menu__item--hover > .sh-menu__submenu {
+			.sh-menu__subnav {
+				margin-left: array-get($sh-smooth-arrows, size, default, right, offset);
+			}
+
+			> .sh-menu__arrow {
+				@include sh--build-smooth-arrow-horizontal(right, default);
+				left: array-get($layout, smooth, left);
+				top: array-get($layout, smooth, offset, default);
+				position: absolute;
+				margin: array-get($layout, smooth, margin);
+			}
+
+			&.sh-menu__submenu--up {
+				> .sh-menu__arrow {
+					top: auto;
+					bottom: array-get($layout, smooth, offset, up);
+				}
+			}
+		}
+	} @else {
+		.sh-menu__nav.sh-menu__nav--dropdown-submenu-arrow .sh-menu__item.sh-menu__item--hover > .sh-menu__submenu {
+			.sh-menu__subnav {
+				margin-left: array-get($layout, classic, size) - 1px;
+			}
+
+			> .sh-menu__arrow {
+				@include sh--build-classic-arrow(right, array-get($layout, classic, size));
+				position: absolute;
+				right: array-get($layout, classic, right);
+				top: array-get($layout, classic, offset, default);
+				margin: array-get($layout, classic,  margin);
+			}
+
+			&.sh-menu__submenu--up {
+				> .sh-menu__arrow {
+					top: auto;
+					bottom: array-get($layout, classic, offset, up);
+				}
+			}
+		}
+	}
+}
+
+//== Populate menu dropdown skin
+@mixin sh-populate--menu-ver-dropdown-skin($base-config, $layout, $skin) {
+	.#{array-get($base-config, parent-class)}--minimize .#{array-get($base-config, class)}.#{array-get($base-config, class)}--submenu-skin-#{$skin},
+	.#{array-get($base-config, class)}.#{array-get($base-config, class)}--dropdown.#{array-get($base-config, class)}--submenu-skin-#{$skin} {
+		.sh-menu__nav {
+			// dropdown items
+			.sh-menu__item:not([sh-menu-submenu-mode='accordion']) {
+				&.sh-menu__item--hover {
+					> .sh-menu__submenu {
+						.sh-menu__subnav {
+							background-color: array-get($layout, dropdown, item, submenu, self, bg-color);
+							@include shadow(array-get($layout, dropdown, item, submenu, self, box-shadow));
+
+							// menu item
+							.sh-menu__item {
+								@include sh-populate--menu-ver-item-skin( array-get($layout, dropdown, item, submenu, item) );	
+							}
+
+							// menu section
+							.sh-menu__section {
+								@include sh-populate--menu-ver-section-skin( array-get($layout, dropdown, item, submenu, section) );	
+							}
+
+							// menu item separator
+							.sh-menu__separator {
+								@include sh-populate--menu-ver-separator-skin( array-get($layout, dropdown, item, submenu, separator) );
+							}	
+						}					
+					}
+				}					
+			}
+
+			// dropdown arrow
+			&.sh-menu__nav--dropdown-submenu-arrow .sh-menu__item.sh-menu__item--hover > .sh-menu__submenu {
+				@if smooth-arrow() {
+					> .sh-menu__arrow {
+						color: array-get($layout, dropdown, item, submenu, self, bg-color);	
+					}
+				} @else {
+					> .sh-menu__arrow {
+						@include sh--set-classic-arrow-bg(right, array-get($layout, dropdown, item, submenu, self, bg-color));
+					}
+				}
+			}
+		}	
+	}
+}
+
+//== Populate minimize menu base
+@mixin sh-populate--menu-ver-minimize-base($base-config, $layout) {
+	.#{array-get($base-config, class)} {
+		.sh-menu__nav {
+			padding: array-get($layout, minimize, self, padding);
+
+			> .sh-menu__item {
+				> .sh-menu__link {				
+					padding-left: 0;
+					padding-right: 0;
+					text-align: center;
+
+					.sh-menu__link-icon {
+						width: 100%;
+						text-align: center;
+					}
+
+					.sh-menu__link-bullet {
+						display: none;
+					}
+
+					.sh-menu__link-text {
+						display: none;
+					}
+
+					.sh-menu__link-title {
+						padding: 0;
+						position: relative;
+						left: -50%;
+
+						.sh-badge { 
+							text-indent: -9999px;
+							position: relative;
+							padding: 0;
+							min-width: array-get($layout, minimize, item, link, badge, size);
+							width: array-get($layout, minimize, item, link, badge, size);
+							min-height: array-get($layout, minimize, item, link, badge, size);
+							height: array-get($layout, minimize, item, link, badge, size);						
+							right: array-get($layout, minimize, item, link, badge, right);							
+						}
+					}
+
+					.sh-menu__ver-arrow {
+						display: none;
+					}
+				}		
+
+				> .sh-menu__submenu {
+					display: none !important;
+				}	
+
+				&.sh-menu__item--expanded {
+					> .sh-menu__arrow {
+						display: inline-block;							
+					}
+				}
+
+				&.sh-menu__item--hover {
+					position: relative;
+					z-index: array-get($layout, minimize, item, self, zindex);
+					width: array-get($layout, minimize, item, self, width);
+
+					&.sh-menu__item--open {
+						background: transparent;
+					}
+
+					> .sh-menu__link {
+						width: array-get($layout, minimize, self, width);
+
+						.sh-menu__link-icon {
+							width: table-cell;
+						}
+						
+						.sh-menu__link-title {
+							display: none;
+						}
+					}
+
+					> .sh-menu__submenu {
+						top: 0;
+						bottom: auto;
+						display: block !important;   
+						margin-left: array-get($layout, minimize, item, submenu, self, margin-left) !important; 
+
+						.sh-menu__subnav {
+							> .sh-menu__item.sh-menu__item--parent {
+								display: block;
+								@include sh-populate--menu-ver-minimize-parent-item-base( array-get($layout, minimize, item, submenu, parent-item) );
+							
+								& + .sh-menu__item {
+									margin-top: array-get($layout, minimize, item, submenu, parent-item, link, self, margin-bottom);
+								}
+							}
+						}						
+					}	
+
+					> .sh-menu__arrow {
+						display: none;							
+					}
+				}
+			}
+
+			> .sh-menu__section {		
+				padding-left: 0;
+				padding-right: 0;
+				text-align: center;
+
+				.sh-menu__section-text {
+					display: none;
+				}
+
+				.sh-menu__section-icon {
+					display: table-cell;
+					vertical-align: middle; 
+				}				
+			}
+		}
+	}
+}
+
+//== Populate minimize menu skin
+@mixin sh-populate--menu-ver-minimize-skin($base-config, $layout, $skin) {
+	.#{array-get($base-config, class)}.#{array-get($base-config, class)}--skin-#{$skin} {
+		// base vertical menu
+		.sh-menu__nav {
+			> .sh-menu__item {
+				background: transparent;
+
+				> .sh-menu__link {
+					background-color: array-get($layout, minimize, item, link, self, bg-color, default);
+
+					> .sh-menu__link-icon {
+						color: array-get($layout, minimize, item, link, icon, font-color, default);
+					}
+				}
+				
+				&.sh-menu__item--hover,
+				&.sh-menu__item--open {
+					background: transparent !important;
+
+					> .sh-menu__link {
+						background-color: array-get($layout, minimize, item, link, self, bg-color, open);
+
+						> .sh-menu__link-icon {
+							@include attr(color, array-get($layout, minimize, item, link, icon, font-color, open));
+						}
+					}
+				}
+
+				&.sh-menu__item--expanded,
+				&.sh-menu__item--active {
+					background: transparent !important;
+
+					> .sh-menu__link {
+						background-color: array-get($layout, minimize, item, link, self, bg-color, active);
+
+						> .sh-menu__link-icon {
+							@include attr(color, array-get($layout, minimize, item, link, icon, font-color, active));
+						}
+					}
+				}
+
+				&:hover {
+					background: transparent;
+
+					> .sh-menu__link {
+						background-color: array-get($layout, minimize, item, link, self, bg-color, hover);
+
+						> .sh-menu__link-icon {
+							@include attr(color, array-get($layout, minimize, item, link, icon, font-color, hover), !important);
+						}
+					}
+				}
+
+				&.sh-menu__item--hover > .sh-menu__submenu {
+					.sh-menu__subnav > .sh-menu__item.sh-menu__item--parent {
+						display: block;
+						@include sh-populate--menu-ver-minimize-parent-item-skin( array-get($layout, minimize, item, submenu, parent-item) );
+					}	
+				}
+			}
+		}
+	}
+}   

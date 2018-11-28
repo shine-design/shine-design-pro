@@ -1,0 +1,33 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/24 09:56
+ */
+body {
+	.sh-page--boxed {
+		background-attachment: fixed;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+}
+
+//== General Mode
+.sh-page {
+	//== Page loading
+	.sh-page--loading-enabled & {
+		@include animation(sh-animate-fade-in .5s);
+	}
+
+	.sh-page--loading & {
+		@include opacity(0);
+		@include animation(sh-animate-fade-out .5s both);
+	}
+}
+@media (min-width: array-get($sh--layout-breakpoints, xxl)) {
+	.sh-page--boxed {
+		.sh-page {
+			width: array-get($sh--container-widths, xxl);
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}

@@ -1,0 +1,152 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/26 15:56
+ */
+
+@mixin sh-build-component--scrollable-base() {
+	.sh-scroller:not(.sh-scrollable--track),
+	.sh-scrollable:not(.sh-scrollable--track) {
+		> .ps__rail-x {
+			top: 4px !important;
+			height: 4px !important;
+
+			&:hover,
+			&:focus {
+				height: 4px !important;
+			}
+
+			> .ps__thumb-x {
+				top: 0 !important;
+				height: 4px !important;
+
+				&:hover,
+				&:focus {
+					top: 0 !important;
+					height: 4px !important;
+				}
+			}
+		}
+
+		> .ps__rail-y {
+			right: 4px !important;
+			width: 4px !important;
+
+			&:hover,
+			&:focus {
+				width: 4px !important;
+			}
+
+			> .ps__thumb-y {
+				right: 0 !important;
+				width: 4px !important;
+
+				&:hover,
+				&:focus {
+					right: 0 !important;
+					width: 4px !important;
+				}
+			}
+		}
+
+		@include sh-set-component--scrollable-skin( get-color(light, panel, '+++') );
+	}
+
+	.ps {
+		overflow: hidden;
+		position: relative;
+
+		> .ps__rail-x {
+			> .ps__thumb-x {
+				background: get-color(light, panel, '++++');
+				opacity: 1;
+
+				&:hover,
+				&:focus {
+					opacity: 1;
+					background: get-color(light, panel, '++++');
+				}
+			}
+		}
+
+		> .ps__rail-y {
+			right: 0;
+
+			> .ps__thumb-y {
+				background: get-color(light, panel, '++++');
+
+				&:hover,
+				&:focus {
+					opacity: 1;
+					background: get-color(light, panel, '++++');
+				}
+			}
+		}
+	}
+
+	[direction="rtl"] {
+		.ps {
+			> .ps__rail-y {
+				right: 4px;
+			}
+		}
+	}
+
+	.sh-scrollable {
+		overflow: hidden;
+		margin-right: -14px;
+		padding-right: 14px;
+		position: relative;
+	}
+}
+
+@mixin sh-set-component--scrollable-skin($color) {
+	> .ps__rail-x {
+		&:hover,
+		&:focus {
+			opacity: 1;
+			background: transparent !important;
+
+			> .ps__thumb-x {
+				background: $color;
+				opacity: 1;
+			}
+		}
+
+		> .ps__thumb-x {
+			background: $color;
+			opacity: 1;
+
+			&:hover,
+			&:focus {
+				opacity: 1;
+				background: $color;
+			}
+		}
+	}
+
+	> .ps__rail-y {
+		&:hover,
+		&:focus {
+			background: transparent !important;
+			opacity: 1;
+
+			> .ps__thumb-y {
+				background: $color;
+				opacity: 1;
+			}
+		}
+
+		> .ps__thumb-y {
+			background: $color;
+			opacity: 1;
+
+			&:hover,
+			&:focus {
+				opacity: 1;
+				background: $color;
+			}
+		}
+	}
+}
+
+@include sh-build-component--scrollable-base();

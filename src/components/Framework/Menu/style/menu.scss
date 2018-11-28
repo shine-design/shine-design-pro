@@ -1,0 +1,58 @@
+/**
+ * @Author 开发团队 - team@shine.design
+ * @Date 2018/11/27 11:47
+ */
+
+@include sh-generate--menu-ver( $sh-menu-aside );
+
+@include desktop {
+	.sh-aside-menu {
+		.sh-menu__nav {
+			> .sh-menu__item {
+				> .sh-menu__link  {
+					@include border-top-left-radius(30px);
+					@include border-bottom-left-radius(30px);
+					padding-left: 30px;
+					padding-right: 30px;
+				}
+
+				> .sh-menu__submenu > .sh-menu__subnav > .sh-menu__item {
+					> .sh-menu__link {
+						padding-left: 50px;
+						padding-right: 30px;
+					}
+
+					> .sh-menu__submenu > .sh-menu__subnav > .sh-menu__item > .sh-menu__link {
+						padding-left: 70px;
+						padding-right: 30px;
+					}
+
+					> .sh-menu__submenu > .sh-menu__subnav > .sh-menu__item > .sh-menu__submenu > .sh-menu__item > .sh-menu__link {
+						padding-left: 90px;
+						padding-right: 30px;
+					}
+				}
+			}
+
+			> .sh-menu__section {
+				padding-left: 30px;
+			}
+		}
+	}
+}
+
+@include tablet-and-mobile {
+	.sh-aside-menu {
+		background: #fff;
+
+		.sh-menu__nav {
+			padding-top: 0;
+
+			> .sh-menu__item {
+				> .sh-menu__link  {
+
+				}
+			}
+		}
+	}
+}

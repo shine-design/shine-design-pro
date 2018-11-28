@@ -54,7 +54,7 @@ export default function (opts = {}) {
 	 */
 	function model(model) {
 		if (_.isArray(model)) {
-			_.forEach(model, (item) => {
+			_.forEach(model, item => {
 				this._models.push(checkModel(item));
 			})
 		} else this._models.push(checkModel(model));
